@@ -362,3 +362,9 @@ model.fit(
         checkpoint_callback
     ]
 )
+
+# Load model from checkpoints
+model = DiffusionModel()
+model.normalizer.adapt(train_data)
+model.load_weights(checkpoint_path)
+model.plot_imgs()
