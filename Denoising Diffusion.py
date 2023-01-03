@@ -345,7 +345,7 @@ model.compile(
 # Calculate mean and variance of training dataset for normalization
 model.normalizer.adapt(train_data)
 
-# Save the model via callback
+# Save the model checkpoints via callback
 checkpoint_path = "checkpoints/diffusion_model"
 checkpoint_callback = keras.callbacks.ModelCheckpoint(
     filepath = checkpoint_path,
@@ -362,3 +362,10 @@ model.fit(
         checkpoint_callback
     ]
 )
+
+# Load model from checkpoints
+model = DiffusionModel()
+model.normalizer.adapt(train_data)
+model.load_weights(checkpoint_path)
+model.plot_imgs()
+plt.savefig("Generate Images.png")
